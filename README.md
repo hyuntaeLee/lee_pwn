@@ -1,6 +1,7 @@
-# pwn_docker
+# pwn_set
 ---
-- Dockerfile for pwn
+- Updated to suit me on October 27, 2023.
+- Dockerfile for pwnable
 - change apt server to kakao
 - include 
   - pwntools
@@ -11,6 +12,7 @@
   - tmux
   - oh-my-zsh
   - pure
+  - gef or pwndbg
 ```
 docker build --tag {imagename}:{tagnum} .
 docker run -it --name 18.04 -v $PWD/{shareddir}:/{containerdir} {imagename:tagnum} usr/bin/zsh
