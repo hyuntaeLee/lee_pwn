@@ -13,6 +13,7 @@
   - oh-my-zsh
   - pure
   - gef or pwndbg
+  - RsaCtfTool in 22.04
 ```
 docker build --tag {imagename}:{tagnum} .
 docker run -it --name 18.04 -v $PWD/{shareddir}:/{containerdir} {imagename:tagnum} usr/bin/zsh
