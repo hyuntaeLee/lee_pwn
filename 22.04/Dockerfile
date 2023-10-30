@@ -26,6 +26,11 @@ RUN apt install ruby-full ruby-dev -y
 RUN gem install one_gadget
 RUN gem install seccomp-tools
 
+#RsaCtfToll install in 22.04
+RUN git clone https://github.com/RsaCtfTool/RsaCtfTool.git
+RUN apt-get install libgmp3-dev libmpc-dev -y
+RUN pip3 install -r RsaCtfTool/requirements.txt
+
 RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true
 
 RUN mkdir -p "$HOME/.zsh"
