@@ -13,7 +13,8 @@
   - oh-my-zsh
   - pure
   - gef or pwndbg
-  - RsaCtfTool, Binwalk in 22.04
+  - RsaCtfTool, Binwalk, patchelf in 22.04
+    - use ldd and patchelf  
 ```
 docker build --tag {imagename}:{tagnum} .
 docker run -it --name 18.04 -v $PWD/{shareddir}:/{containerdir} {imagename:tagnum} usr/bin/zsh
