@@ -19,6 +19,9 @@ RUN pip3 install capstone
 RUN pip3 install angr
 RUN python3 -m pip install --upgrade pwntools
 
+#patchelf
+RUN apt update -y && apt install patchelf -y
+
 RUN apt-get install libcapstone-dev -y
 RUN apt-get install libc6:i386 -y
 RUN apt install ruby-full ruby-dev -y
