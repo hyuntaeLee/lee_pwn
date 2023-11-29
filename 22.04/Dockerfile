@@ -44,9 +44,6 @@ RUN pip3 install -r RsaCtfTool/requirements.txt
 
 RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true
 
-#gdb just gef
-RUN wget -O ~/.gdbinit-gef.py -q https://gef.blah.cat/py
-RUN echo source ~/.gdbinit-gef.py >> ~/.gdbinit
 
 RUN mkdir -p "$HOME/.zsh"
 RUN git clone https://github.com/sindresorhus/pure.git "$HOME/.zsh/pure"
@@ -60,3 +57,5 @@ RUN echo "source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" >> ~/.zshrc
 RUN echo "ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=111'" >> ~/.zshrc
 
 RUN echo "syntax on\\nfiletype indent plugin on\\nlet python_version_2=1\\nlet python_highlight_all=1\\nset tabstop=8\\nset softtabstop=4\\nset autoindent\nset nu">>~/.vimrc
+
+RUN git clone https://github.com/pwndbg/pwndbg && cd pwndbg && ./setup.sh
