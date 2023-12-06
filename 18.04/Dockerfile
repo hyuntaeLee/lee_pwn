@@ -30,7 +30,7 @@ RUN pip3 install angr
 RUN pip3 install pwntools
 RUN pip3 install keystone-engine 
 
-# install one_gadget, seccomp-tools  command
+# install one_gadget, seccomp-tools
 RUN gem install one_gadget
 RUN gem install seccomp-tools -v 1.5.0
 
