@@ -18,7 +18,6 @@ RUN pip3 install -U pip==20.3.4
 RUN pip3 install -U pwntools
 RUN pip3 install capstone ropper
 RUN pip3 install ROPgadget
-#RUN pip3 install ropgadget
 RUN apt install libcapstone-dev -y
 
 #patchelf
