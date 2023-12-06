@@ -23,5 +23,5 @@
     - 20.04, 22.04
 ```
 docker build --tag {imagename}:{tagnum} .
-docker run -it --name 18.04 -v $PWD/{shareddir}:/{containerdir} {imagename:tagnum} usr/bin/zsh
+docker run -it --name {version} -v $PWD/{shareddir}:/{containerdir} {imagename:tagnum} usr/bin/zsh
 ```
