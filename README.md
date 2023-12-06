@@ -1,20 +1,26 @@
 # Dockerfile_for_pwn_setting
 ---
-- Updated to suit me on October 27, 2023.
+- Updated to suit me on 12/06, 2023.
 - Dockerfile for pwnable
 - change apt server to kakao
-- include 
+- include
+  - tmux
+  - oh-my-zsh
   - pwntools
   - ROPgadget
   - one_gadget
   - seccomp_tools
+    - 18.04, 20.04, 22.04
   - pwndbg
-  - tmux
-  - oh-my-zsh
-  - pure
-  - gef or pwndbg
-  - RsaCtfTool, Binwalk, patchelf in 22.04
-    - use ldd and patchelf  
+    - 18.04, 20.04, 22.04
+  - gef
+    - 16.04
+  - pwndbg
+    - 18.04, 20.04, 22.04
+  - patchelf
+    - 16.04, 18.04
+  - pwninit
+    - 20.04, 22.04
 ```
 docker build --tag {imagename}:{tagnum} .
 docker run -it --name 18.04 -v $PWD/{shareddir}:/{containerdir} {imagename:tagnum} usr/bin/zsh
