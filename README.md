@@ -11,8 +11,6 @@
   - one_gadget
   - seccomp_tools
     - 18.04, 20.04, 22.04
-  - pwndbg
-    - 18.04, 20.04, 22.04
   - gef
     - 16.04
   - pwndbg
