@@ -9,7 +9,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 RUN sed -i 's@archive.ubuntu.com@mirror.kakao.com@g' /etc/apt/sources.list
 RUN dpkg --add-architecture i386
-RUN apt upgrade && apt update
+RUN apt update && apt upgrade
 RUN apt-get update && apt-get install -y netcat
 
 RUN apt install git curl wget vim zsh gdb python3 python3-pip python3-dev libssl-dev libffi-dev build-essential tmux -y
