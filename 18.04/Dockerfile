@@ -6,7 +6,7 @@ ENV PYTHONIOENCODING UTF-8
 ENV LC_CTYPE C.UTF-8
 
 RUN apt update
-RUN apt install -y gcc git python3 python3-pip ruby sudo tmux vim wget zsh netcat
+RUN apt install -y gcc git python3 python3-pip ruby sudo tmux vim wget zsh netcat cmake
 
 RUN dpkg --add-architecture i386 &&\
        apt-get update
