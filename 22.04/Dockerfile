@@ -15,17 +15,20 @@ RUN apt install git curl wget vim zsh gdb gcc python3 python3-pip python3-dev li
 RUN apt-get update && apt-get install -y binwalk
 RUN apt update && apt install -y autoconf
 
+#patchelf
+RUN apt install patchelf 
+
 #pwninit
 RUN apt install -y openssl pkg-config
 RUN apt-get update && apt-get install -y cargo
 RUN apt-get update -y
 RUN apt-get install -y liblzma-dev
-RUN wget https://github.com/io12/pwninit/archive/refs/tags/3.3.0.tar.gz \
-    && tar -xvf 3.3.0.tar.gz \
-    && cd pwninit-3.3.0 \
+RUN wget https://github.com/io12/pwninit/archive/refs/tags/3.3.1.tar.gz \
+    && tar -xvf 3.3.1.tar.gz \
+    && cd pwninit-3.3.1 \
     && cargo install --path . \
     && cd .. \
-    && rm -rf 3.3.0.tar.gz
+    && rm -rf 3.3.1.tar.gz
 
 #ROPgadget, pwntools
 RUN python3 -m pip install --upgrade pip
