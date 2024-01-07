@@ -12,7 +12,7 @@ RUN dpkg --add-architecture i386
 RUN apt update && apt upgrade
 RUN apt-get update && apt-get install -y netcat
 
-RUN apt install git curl wget vim zsh gdb python3 python3-pip python3-dev libssl-dev libffi-dev build-essential tmux -y
+RUN apt install git curl wget vim zsh gdb python3 python3-pip python3-dev libssl-dev libffi-dev build-essential tmux cmake -y
 
 #ROPgadget, pwntools
 RUN python3 -m pip install --upgrade pip
