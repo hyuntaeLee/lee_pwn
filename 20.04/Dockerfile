@@ -23,17 +23,20 @@ RUN pip3 install capstone
 RUN pip3 install angr
 RUN python3 -m pip install --upgrade pwntools
 
+#patchelf
+RUN apt install patchelf 
+
 #pwninit
 RUN apt install -y openssl pkg-config
 RUN apt-get update && apt-get install -y cargo
 RUN apt-get update -y
 RUN apt-get install -y liblzma-dev
-RUN wget https://github.com/io12/pwninit/archive/refs/tags/3.3.0.tar.gz \
-    && tar -xvf 3.3.0.tar.gz \
-    && cd pwninit-3.3.0 \
+RUN wget https://github.com/io12/pwninit/archive/refs/tags/3.3.1.tar.gz \
+    && tar -xvf 3.3.1.tar.gz \
+    && cd pwninit-3.3.1 \
     && cargo install --path . \
     && cd .. \
-    && rm -rf 3.3.0.tar.gz
+    && rm -rf 3.3.1.tar.gz
 
 RUN apt-get install libcapstone-dev -y
 RUN apt-get install libc6:i386 -y
