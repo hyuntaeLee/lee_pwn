@@ -26,7 +26,7 @@ RUN apt update -y && apt install patchelf -y
 RUN apt-get install zip unzip -y
 RUN wget https://github.com/hugsy/gef/archive/refs/tags/2021.10.zip
 RUN unzip 2021.10.zip
-RUN echo source ~/gef-2021.10/gef.py >> ~/.gdbinit
+RUN echo source /gef-2021.10/gef.py >> ~/.gdbinit
 RUN rm 2021.10.zip
 
 #one_gadget
