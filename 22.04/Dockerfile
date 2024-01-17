@@ -32,16 +32,12 @@ RUN wget https://github.com/io12/pwninit/archive/refs/tags/3.3.1.tar.gz \
 
 #ROPgadget, pwntools
 RUN python3 -m pip install --upgrade pip
-RUN pip3 install unicorn
-RUN pip3 install keystone-engine
-RUN pip3 install ROPgadget
-RUN pip3 install capstone
-RUN pip3 install angr
+RUN pip3 install unicorn keystone-engine ROPgadget capstone angr
 RUN python3 -m pip install --upgrade pwntools
 
 RUN apt-get install libcapstone-dev -y
 RUN apt-get install libc6:i386 -y
-RUN apt install ruby-full ruby-dev -y
+RUN apt install ruby-full -y
 
 #one_gadget, seccomp-tools
 RUN gem install one_gadget
