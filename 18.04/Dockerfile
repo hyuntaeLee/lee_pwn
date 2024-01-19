@@ -6,35 +6,21 @@ ENV PYTHONIOENCODING UTF-8
 ENV LC_CTYPE C.UTF-8
 
 RUN apt update
-RUN apt install -y gcc git python3 python3-pip ruby sudo tmux vim wget zsh netcat cmake
+RUN apt install -y gcc git python3 python3-pip ruby sudo tmux vim wget zsh netcat cmake gdb
 
 RUN dpkg --add-architecture i386 &&\
        apt-get update
 RUN apt-get install ruby binutils-multiarch  libssl-dev libffi-dev build-essential libssl-dev libc6-i386 libc6-dbg gcc-multilib make -y
 RUN apt-get install libc6:i386 libncurses5:i386 libstdc++6:i386 ruby-full python-dev python-setuptools python-capstone socat -y
-RUN gem install one_gadget 
 
-# install pwndbg
-WORKDIR /root
-RUN git clone https://github.com/pwndbg/pwndbg
-WORKDIR /root/pwndbg
-RUN git checkout 2023.03.19
-RUN ./setup.sh
-# install pwntools, ROPgadget
-RUN pip3 install --upgrade pip
-RUN pip3 install unicorn
-RUN pip3 install keystone-engine
-RUN pip3 install ROPgadget
-RUN pip3 install capstone
-RUN pip3 install angr
-RUN pip3 install pwntools
-RUN pip3 install keystone-engine 
+# pwntools, ROPgadget
+RUN pip3 install --upgrade pip unicorn keystone-engine ROPgadget capstone angr pwntools keystone-engine 
 
-# install one_gadget, seccomp-tools
+# one_gadget, seccomp-tools
 RUN gem install one_gadget
 RUN gem install seccomp-tools -v 1.5.0
 
-# install patchelf
+# patchelf
 WORKDIR /root
 RUN apt install -y dh-autoreconf
 RUN git clone https://github.com/NixOS/patchelf
@@ -63,3 +49,8 @@ RUN echo "source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" >> ~/.zshrc
 RUN echo "ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=111'" >> ~/.zshrc
 
 RUN echo "syntax on\\nfiletype indent plugin on\\nlet python_version_2=1\\nlet python_highlight_all=1\\nset tabstop=8\\nset softtabstop=4\\nset autoindent\nset nu">>~/.vimrc
+
+RUN cd ~ && \
+    git clone https://github.com/scwuaptx/Pwngdb.git && \
+    git clone https://github.com/longld/peda.git ~/peda && \
+    cp ~/Pwngdb/.gdbinit ~/
