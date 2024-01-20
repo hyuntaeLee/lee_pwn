@@ -1,6 +1,6 @@
 # Dockerfile_for_pwn_setting
 ---
-- Updated to suit me on 12/06, 2023.
+- Updated to suit me on 01/19, 2024.
 - Dockerfile for pwnable
 - change apt server to kakao
 - include
