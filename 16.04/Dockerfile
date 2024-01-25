@@ -1,40 +1,28 @@
 FROM ubuntu:16.04
+
 ARG DEBIAN_FRONTEND=noninteractive
-ENV TZ Asia/Seoul
-ENV PYTHONIOENCODING UTF-8
-ENV LC_CTYPE C.UTF-8
+ENV TZ=Asia/Seoul \
+    PYTHONIOENCODING=UTF-8 \
+    LC_CTYPE=C.UTF-8
 
-RUN apt update && apt install -y netcat
-RUN apt install vim git gcc ssh curl tmux cmake wget gdb sudo zsh python3 python3-dev python3-pip libffi-dev build-essential libssl-dev libc6-i386 libc6-dbg gcc-multilib make -y
+RUN apt-get update && \
+    apt-get install -y software-properties-common && \
+    apt-add-repository ppa:brightbox/ruby-ng && \
+    apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y vim git gcc ssh curl tmux cmake wget gdb sudo zsh python3 python3-dev python3-pip libffi-dev build-essential libssl-dev libc6-i386 libc6-dbg gcc-multilib make netcat patchelf zip unzip libcapstone-dev ruby2.4 && \
+    dpkg --add-architecture i386 && \
+    apt-get update && \
+    apt-get install -y libc6:i386
 
-RUN dpkg --add-architecture i386
-RUN apt update
-RUN apt install libc6:i386 -y
+RUN pip3 install -U pip==20.3.4 && \
+    pip3 install unicorn keystone-engine pwntools capstone ropper ROPgadget && \
+    gem install one_gadget
 
-#ROPgadget, pwntools
-RUN pip3 install unicorn
-RUN pip3 install keystone-engine
-RUN pip3 install -U pip==20.3.4
-RUN pip3 install -U pwntools
-RUN pip3 install capstone ropper
-RUN pip3 install ROPgadget
-RUN apt install libcapstone-dev -y
-
-#patchelf
-RUN apt update -y && apt install patchelf -y
-
-RUN apt-get install zip unzip -y
-RUN wget https://github.com/hugsy/gef/archive/refs/tags/2021.10.zip
-RUN unzip 2021.10.zip
-RUN echo source /gef-2021.10/gef.py >> ~/.gdbinit
-RUN rm 2021.10.zip
-
-#one_gadget
-RUN apt-get install -y software-properties-common
-RUN apt-add-repository ppa:brightbox/ruby-ng
-RUN apt-get update && apt-get upgrade -y
-RUN apt-get install -y ruby2.4
-RUN gem install one_gadget
+RUN wget https://github.com/hugsy/gef/archive/refs/tags/2021.10.zip && \
+    unzip 2021.10.zip && \
+    echo source /gef-2021.10/gef.py >> ~/.gdbinit && \
+    rm 2021.10.zip
 
 RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true
 RUN mkdir -p "$HOME/.zsh"
@@ -51,3 +39,20 @@ RUN git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosu
 RUN echo "source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" >> ~/.zshrc
 RUN echo "ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=111'" >> ~/.zshrc
 RUN echo "syntax on\\nfiletype indent plugin on\\nlet python_version_2=1\\nlet python_highlight_all=1\\nset tabstop=8\\nset softtabstop=4\\nset autoindent\nset nu">>~/.vimrc
+
+RUN apt-get clean && \
+    apt-get autoclean && \
+    apt-get autoremove -y && \
+    rm -rf /var/lib/cache/* && \
+    rm -rf /var/lib/log/*
+
+RUN useradd -m -s /bin/zsh user && \
+    echo 'user ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+RUN cp -r /root/.zsh /home/user/.zsh && \
+    cp /root/.zshrc /home/user/.zshrc && \
+    cp -r /root/.oh-my-zsh /home/user/.oh-my-zsh
+
+RUN chsh -s /bin/zsh root
+
+USER user
