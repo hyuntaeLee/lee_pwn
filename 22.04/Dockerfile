@@ -57,3 +57,20 @@ RUN cd ~ && \
     git clone https://github.com/scwuaptx/Pwngdb.git && \
     git clone https://github.com/longld/peda.git ~/peda && \
     cp ~/Pwngdb/.gdbinit ~/
+    
+RUN apt-get clean && \
+    apt-get autoclean && \
+    apt-get autoremove -y && \
+    rm -rf /var/lib/cache/* && \
+    rm -rf /var/lib/log/*
+
+RUN useradd -m -s /bin/zsh user && \
+    echo 'user ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+RUN cp -r /root/.zsh /home/user/.zsh && \
+    cp /root/.zshrc /home/user/.zshrc && \
+    cp -r /root/.oh-my-zsh /home/user/.oh-my-zsh
+
+RUN chsh -s /bin/zsh root
+
+USER user
