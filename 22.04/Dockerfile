@@ -11,7 +11,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN sed -i 's@archive.ubuntu.com@mirror.kakao.com@g' /etc/apt/sources.list && \
     dpkg --add-architecture i386 && \
     apt-get update && \
-    apt-get install -y netcat git curl wget vim zsh gdb gcc python3 python3-pip python3-dev libssl-dev libffi-dev build-essential tmux binwalk autoconf openssl pkg-config cargo liblzma-dev libgmp3-dev libmpc-dev libcapstone-dev libc6:i386 ruby-full patchelf && \
+    apt-get install -y netcat sudo git curl wget vim zsh gdb gcc python3 python3-pip python3-dev libssl-dev libffi-dev build-essential tmux binwalk autoconf openssl pkg-config cargo liblzma-dev libgmp3-dev libmpc-dev libcapstone-dev libc6:i386 ruby-full patchelf && \
+    apt-get upgrade -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -44,8 +45,8 @@ RUN echo "LS_COLORS='rs=0:di=01;32:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=
 RUN git clone https://github.com/dracula/zsh.git
 RUN ln -s /root/zsh/dracula.zsh-theme /root/.oh-my-zsh/themes/dracula.zsh-theme
 
-RUN git clone https://github.com/zsh-users/zsh-syntax-highlighting.git && \
-    echo "source ./zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ~/.zshrc
+RUN git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-syntax-highlighting && \
+    echo "source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ~/.zshrc
 
 RUN git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions && \
     echo "source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" >> ~/.zshrc && \
@@ -57,7 +58,7 @@ RUN cd ~ && \
     git clone https://github.com/scwuaptx/Pwngdb.git && \
     git clone https://github.com/longld/peda.git ~/peda && \
     cp ~/Pwngdb/.gdbinit ~/
-    
+
 RUN apt-get clean && \
     apt-get autoclean && \
     apt-get autoremove -y && \
@@ -69,7 +70,12 @@ RUN useradd -m -s /bin/zsh user && \
 
 RUN cp -r /root/.zsh /home/user/.zsh && \
     cp /root/.zshrc /home/user/.zshrc && \
-    cp -r /root/.oh-my-zsh /home/user/.oh-my-zsh
+    cp -r /root/.oh-my-zsh /home/user/.oh-my-zsh && \
+    cp -r /root/Pwngdb /home/user/ && \
+    cp -r /root/peda /home/user/ && \
+    cp /root/.gdbinit /home/user/
+
+RUN chown -R user:user /home/user/.zsh /home/user/.zshrc /home/user/.oh-my-zsh /home/user/Pwngdb /home/user/peda /home/user/.gdbinit
 
 RUN chsh -s /bin/zsh root
 
