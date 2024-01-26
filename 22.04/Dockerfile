@@ -54,10 +54,7 @@ RUN git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosu
 
 RUN echo "syntax on\\nfiletype indent plugin on\\nlet python_version_2=1\\nlet python_highlight_all=1\\nset tabstop=8\\nset softtabstop=4\\nset autoindent\nset nu">>~/.vimrc
 
-RUN cd ~ && \
-    git clone https://github.com/scwuaptx/Pwngdb.git && \
-    git clone https://github.com/longld/peda.git ~/peda && \
-    cp ~/Pwngdb/.gdbinit ~/
+RUN git clone https://github.com/pwndbg/pwndbg && cd pwndbg && ./setup.sh
 
 RUN apt-get clean && \
     apt-get autoclean && \
@@ -71,11 +68,10 @@ RUN useradd -m -s /bin/zsh user && \
 RUN cp -r /root/.zsh /home/user/.zsh && \
     cp /root/.zshrc /home/user/.zshrc && \
     cp -r /root/.oh-my-zsh /home/user/.oh-my-zsh && \
-    cp -r /root/Pwngdb /home/user/ && \
-    cp -r /root/peda /home/user/ && \
-    cp /root/.gdbinit /home/user/
+    cp -r /root/.cargo /home/user/.cargo && \
+    cp /root/.gdbinit /home/user/.gdbinit
 
-RUN chown -R user:user /home/user/.zsh /home/user/.zshrc /home/user/.oh-my-zsh /home/user/Pwngdb /home/user/peda /home/user/.gdbinit
+RUN chown -R user:user /home/user/.zsh /home/user/.zshrc /home/user/.oh-my-zsh /home/user/.cargo /home/user/.gdbinit
 
 RUN chsh -s /bin/zsh root
 
