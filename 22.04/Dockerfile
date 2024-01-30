@@ -3,8 +3,6 @@ FROM ubuntu:22.04
 ENV TZ Asia/Seoul
 ENV PYTHONENCODING UTF-8
 ENV LC_CTYPE C.UTF-8
-#for pwninit
-ENV PATH="/root/.cargo/bin:${PATH}" 
 ARG DEBIAN_FRONTEND=noninteractive
 
 # essential packages
@@ -13,7 +11,6 @@ RUN sed -i 's@archive.ubuntu.com@mirror.kakao.com@g' /etc/apt/sources.list && \
     apt-get update && \
     apt-get install -y netcat sudo git curl wget vim zsh gdb gcc python3 python3-pip python3-dev libssl-dev libffi-dev build-essential tmux binwalk autoconf openssl pkg-config cargo liblzma-dev libgmp3-dev libmpc-dev libcapstone-dev libc6:i386 ruby-full patchelf && \
     apt-get upgrade -y && \
-    apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 # pwninit 
