@@ -18,6 +18,9 @@ switch ($version) {
     "22.04" {
         docker run -it --rm --cap-add SYS_PTRACE --security-opt seccomp:unconfined --name 22.04 -v ${PWD}/study:/study leepwn:22.04 /usr/bin/zsh
     }
+    "crypto" {
+        docker run -it --rm --cap-add SYS_PTRACE --security-opt seccomp:unconfined --name 22.04 -v ${PWD}/study:/study leepwn:crypto /usr/bin/zsh
+    }
     default {
         Write-Host "Unsupported version specified"
     }
