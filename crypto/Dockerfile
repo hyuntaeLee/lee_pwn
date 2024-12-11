@@ -9,8 +9,11 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN sed -i 's@archive.ubuntu.com@mirror.kakao.com@g' /etc/apt/sources.list && \
     dpkg --add-architecture i386 && \
     apt-get update && \
-    apt-get install -y netcat sudo git curl wget vim zsh gdb gcc python3 python3-pip python3-dev libssl-dev libffi-dev build-essential tmux binwalk autoconf openssl pkg-config cargo liblzma-dev libgmp3-dev libmpc-dev libcapstone-dev libc6:i386 ruby-full patchelf && \
-    apt-get upgrade -y && \
+    apt-get install -y netcat sudo git curl wget vim zsh gdb gcc python3 python3-pip python3-dev libssl-dev libffi-dev build-essential tmux binwalk autoconf openssl pkg-config cargo liblzma-dev libgmp3-dev libmpc-dev libcapstone-dev libc6:i386 ruby-full patchelf
+
+RUN apt-get install -y sagemath
+
+RUN apt-get upgrade -y && \
     rm -rf /var/lib/apt/lists/*
 
 # pwninit 
@@ -23,7 +26,7 @@ RUN wget https://github.com/io12/pwninit/archive/refs/tags/3.3.1.tar.gz && \
 
 # Python packages
 RUN python3 -m pip install --upgrade pip && \
-    pip3 install unicorn keystone-engine ROPgadget capstone angr &&\
+    pip3 install unicorn keystone-engine ROPgadget capstone angr opencv-python &&\
     python3 -m pip install --upgrade pwntools
 
 # gem packages
